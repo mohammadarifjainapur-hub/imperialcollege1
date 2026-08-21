@@ -654,10 +654,10 @@
                     </div>
                 </div>
 
-                <!-- UPLOAD STUDY MATERIAL -->
+                <!-- UPLOAD/UPDATE TAB -->
                 <div id="page-upload" class="page">
+                    <!-- UPLOAD MATERIAL -->
                     <div class="section-title"><i class='bx bx-book-open'></i> Upload Study Material</div>
-                    
                     <div class="card">
                         <div class="form-group">
                             <label>Target Year</label>
@@ -666,19 +666,39 @@
                                 <option value="2">2nd Year (PCMB)</option>
                             </select>
                         </div>
-                        
                         <div class="form-group">
                             <label>Subject & Chapter</label>
                             <input type="text" id="noteSubject" class="input-field" placeholder="e.g. Physics - Kinematics">
                         </div>
-                        
                         <div class="form-group" style="margin-bottom: 24px;">
                             <label>Drive / Material Link</label>
                             <input type="text" id="noteLink" class="input-field" placeholder="Paste link here...">
                         </div>
-                        
                         <button class="btn-main" onclick="uploadNote()">
                             <i class='bx bx-upload'></i> Publish Material
+                        </button>
+                    </div>
+
+                    <!-- UPDATE SCHEDULE (PRACTICAL / EXAM) -->
+                    <div class="section-title" style="margin-top: 32px;"><i class='bx bx-calendar-event'></i> Schedule Updates</div>
+                    <div class="card">
+                        <div class="form-group">
+                            <label>Event Type</label>
+                            <select id="schedType" class="input-field">
+                                <option value="Practical">Practical / Lab</option>
+                                <option value="Exam">Exam / Test</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject / Event Title</label>
+                            <input type="text" id="schedSubject" class="input-field" placeholder="e.g. Physics Lab / Mid-Term">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 24px;">
+                            <label>Event Date</label>
+                            <input type="text" id="schedDate" class="input-field" placeholder="e.g. 20 Oct">
+                        </div>
+                        <button class="btn-main" onclick="updateSchedule()">
+                            <i class='bx bx-calendar-edit'></i> Update Schedule
                         </button>
                     </div>
                 </div>
@@ -693,13 +713,13 @@
                 <button class="nav-btn" onclick="switchPage('report', this)"><i
                         class='bx bx-chart'></i><span>Report</span></button>
                 <button class="nav-btn" onclick="switchPage('upload', this)"><i
-                        class='bx bx-upload'></i><span>Upload</span></button>
+                        class='bx bx-upload'></i><span>Updates</span></button>
             </nav>
         </div>
     </div>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbyUlEgkmxTF-8UajU9laehosQIYsvGz4mil1eXOzCM4RZb8uPngOysfG21d6HWV1x30/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbx8tSGdpDJ0D4zAZWEA0yxjR3BWD_wlD6MRcUVfkxxUTefhXasDyWGbxSDG1Jv5tkSc/exec';
         
         window.onload = () => {
             const storedRole = localStorage.getItem('userRole');
@@ -791,7 +811,6 @@
             document.getElementById('tabRep' + tab).classList.add('active');
             document.getElementById('repList' + tab).style.display = 'block';
         }
-        /* -------------------------------- */
 
         async function loadTeacherStudents() {
             try {
@@ -841,7 +860,6 @@
             
             let records = [];
             
-            // Check which tab is active to only submit those students
             const activeListId = document.getElementById('tabAtt1').classList.contains('active') ? 'attList1' : 'attList2';
 
             document.querySelectorAll(`#${activeListId} input[type="radio"]:checked`).forEach(radio => {
@@ -863,7 +881,6 @@
 
         async function loadTeacherReport() {
             try {
-                // Fetch both students and report to accurately map their Year Role
                 const [studRes, repRes] = await Promise.all([
                     fetch(`${API_URL}?action=getStudents`),
                     fetch(`${API_URL}?action=getAllAttendance`)
@@ -874,7 +891,6 @@
                 
                 if (data.error) return;
 
-                // Create a mapping of Register_No -> Role
                 const roleMap = {};
                 students.forEach(s => {
                     roleMap[s.register_no.toLowerCase()] = s.role;
@@ -884,7 +900,7 @@
                 
                 data.forEach(s => {
                     let studentId = s.register_no.toLowerCase();
-                    let role = roleMap[studentId] || 'student_1'; // Default 1st Year
+                    let role = roleMap[studentId] || 'student_1'; 
 
                     let c = s.percentage >= 75 ? 'var(--success)' : 'var(--danger)';
                     let html = `
@@ -910,21 +926,64 @@
             } catch (e) { }
         }
 
-        function uploadNote() {
+        // --- PUBLISH MATERIAL SCRIPT ---
+        async function uploadNote() {
             const y = document.getElementById('uploadYear').value;
             const s = document.getElementById('noteSubject').value.trim();
             const l = document.getElementById('noteLink').value.trim();
             
             if (!s || !l) return showToast("Fields cannot be empty.", "error");
             
-            showToast("Asset Broadcasted Successfully!", "success");
+            showToast("Uploading...", "info");
             
-            document.getElementById('uploadYear').value = '1';
-            document.getElementById('noteSubject').value = '';
-            document.getElementById('noteLink').value = '';
+            try {
+                const res = await fetch(`${API_URL}?action=uploadNote`, { 
+                    method: 'POST', 
+                    body: JSON.stringify({ year: y, subject: s, link: l }) 
+                });
+                const data = await res.json();
+                
+                if(data.status === 'success') {
+                    showToast("Asset Broadcasted Successfully!", "success");
+                    document.getElementById('noteSubject').value = '';
+                    document.getElementById('noteLink').value = '';
+                } else {
+                    showToast("Upload failed.", "error");
+                }
+            } catch(e) {
+                showToast("Connection Error.", "error");
+            }
         }
 
-        // Search Filter for Report Analytics
+        // --- UPDATE SCHEDULE (PRACTICAL / EXAM) SCRIPT ---
+        async function updateSchedule() {
+            const t = document.getElementById('schedType').value;
+            const s = document.getElementById('schedSubject').value.trim();
+            const d = document.getElementById('schedDate').value.trim();
+            
+            if (!s || !d) return showToast("Fields cannot be empty.", "error");
+            
+            showToast("Updating Schedule...", "info");
+            
+            try {
+                const res = await fetch(`${API_URL}?action=updateSchedule`, { 
+                    method: 'POST', 
+                    body: JSON.stringify({ type: t, subject: s, date: d }) 
+                });
+                const data = await res.json();
+                
+                if(data.status === 'success') {
+                    showToast(data.message, "success");
+                    document.getElementById('schedSubject').value = '';
+                    document.getElementById('schedDate').value = '';
+                } else {
+                    showToast("Update failed.", "error");
+                }
+            } catch(e) {
+                showToast("Connection Error.", "error");
+            }
+        }
+
         function filterReport() {
             const query = document.getElementById('searchReport').value.toLowerCase();
             const rows = document.querySelectorAll('#page-report .report-row');
