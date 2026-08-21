@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Admin Dashboard | Imperial Science</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #0284c7;
@@ -24,651 +23,127 @@
             --warning: #f59e0b;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
 
-        body {
-            background: #cbd5e1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100dvh;
-            margin: 0;
-            overflow: hidden;
-        }
+        body { background: #cbd5e1; display: flex; justify-content: center; align-items: center; height: 100dvh; margin: 0; overflow: hidden; }
 
-        .app-container {
-            width: 100%;
-            max-width: 414px;
-            height: 100dvh;
-            background: var(--bg);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
-        }
+        .app-container { width: 100%; max-width: 414px; height: 100dvh; background: var(--bg); position: relative; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 0 50px rgba(0, 0, 0, 0.1); }
 
         @media(min-width:450px) {
-            .app-container {
-                height: 90vh;
-                max-height: 850px;
-                border-radius: 40px;
-                border: 8px solid #ffffff;
-            }
+            .app-container { height: 90vh; max-height: 850px; border-radius: 40px; border: 8px solid #ffffff; }
         }
 
-        .loader-full {
-            position: absolute;
-            inset: 0;
-            background: var(--surface);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: 0.5s;
-        }
+        .loader-full { position: absolute; inset: 0; background: var(--surface); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.5s; }
 
         /* LOGIN UI */
-        .login-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            padding: 20px;
-            background: var(--bg);
-        }
-
-        .login-container {
-            width: 100%;
-            padding: 40px 30px;
-            background: var(--surface);
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            border: 1px solid var(--border);
-        }
-
-        .logo-box {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), #38bdf8);
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            color: white;
-            font-size: 38px;
-            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3);
-            transform: rotate(-5deg);
-        }
-
-        .login-container h1 {
-            font-size: 24px;
-            color: var(--text-main);
-            margin-bottom: 8px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .login-container p {
-            color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 30px;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .input-group i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 22px;
-        }
-
-        .input-login {
-            width: 100%;
-            padding: 16px 16px 16px 48px;
-            background: var(--bg);
-            border: 2px solid var(--border);
-            border-radius: 18px;
-            font-size: 15px;
-            color: var(--text-main);
-            outline: none;
-            transition: 0.3s;
-            font-weight: 600;
-        }
-
-        .input-login:focus {
-            border-color: var(--primary);
-            background: var(--surface);
-            box-shadow: 0 0 0 4px var(--primary-light);
-        }
+        .login-wrapper { display: flex; justify-content: center; align-items: center; height: 100%; padding: 20px; background: var(--bg); }
+        .login-container { width: 100%; padding: 40px 30px; background: var(--surface); border-radius: 30px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05); text-align: center; border: 1px solid var(--border); }
+        .logo-box { width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), #38bdf8); border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; color: white; font-size: 38px; transform: rotate(-5deg); }
+        .login-container h1 { font-size: 24px; color: var(--text-main); margin-bottom: 8px; font-weight: 800; }
+        .login-container p { color: var(--text-muted); font-size: 14px; font-weight: 500; margin-bottom: 30px; }
+        .input-group { position: relative; margin-bottom: 20px; text-align: left; }
+        .input-group i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 22px; }
+        .input-login { width: 100%; padding: 16px 16px 16px 48px; background: var(--bg); border: 2px solid var(--border); border-radius: 18px; font-size: 15px; color: var(--text-main); outline: none; transition: 0.3s; font-weight: 600; }
+        .input-login:focus { border-color: var(--primary); background: var(--surface); box-shadow: 0 0 0 4px var(--primary-light); }
 
         /* APP UI */
-        #mainApp {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
-        }
+        #mainApp { display: flex; flex-direction: column; height: 100%; width: 100%; }
+        .app-header { background: var(--surface); padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); z-index: 10; }
+        .header-title h2 { font-size: 20px; font-weight: 800; color: var(--text-main); margin-bottom: 2px; }
+        .header-title p { font-size: 12px; font-weight: 600; color: var(--primary); text-transform: uppercase; }
+        .logout-btn { background: var(--danger-light); color: var(--danger); border: none; width: 40px; height: 40px; border-radius: 12px; font-size: 20px; cursor: pointer; transition: 0.3s; }
+        
+        .scroll-area { flex: 1; overflow-y: auto; padding: 20px 20px 100px 20px; scrollbar-width: none; background: var(--bg); }
+        .scroll-area::-webkit-scrollbar { display: none; }
+        
+        .page { display: none; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .section-title { font-size: 16px; font-weight: 800; color: var(--text-main); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .section-title i { color: var(--primary); }
 
-        .app-header {
-            background: var(--surface);
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            z-index: 10;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-        }
+        .card { background: var(--surface); border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02); }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+        .stat-card { background: var(--surface); padding: 20px; border-radius: 20px; border: 1px solid var(--border); }
+        .stat-card .icon-wrapper { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 12px; }
+        .stat-card h3 { font-size: 24px; font-weight: 800; margin-bottom: 4px; color: var(--text-main); }
+        .stat-card p { font-size: 13px; font-weight: 600; color: var(--text-muted); }
 
-        .header-title h2 {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
-            margin-bottom: 2px;
-        }
+        /* Forms */
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; }
+        .input-field { width: 100%; background: var(--bg); border: 2px solid var(--border); color: var(--text-main); padding: 14px 16px; border-radius: 14px; font-size: 15px; outline: none; font-weight: 600; transition: 0.3s; }
+        .input-field:focus { border-color: var(--primary); background: var(--surface); }
+        select.input-field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; }
 
-        .header-title p {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .btn-main { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 14px; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; box-shadow: 0 8px 20px rgba(2, 132, 199, 0.2); }
 
-        .logout-btn {
-            background: var(--danger-light);
-            color: var(--danger);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        /* Tabs (For Year 1 / Year 2 separation) */
+        .tab-container { display: flex; gap: 10px; margin-bottom: 16px; background: var(--surface); padding: 6px; border-radius: 16px; border: 1px solid var(--border); }
+        .tab-btn { flex: 1; padding: 10px; background: transparent; border: none; border-radius: 12px; font-size: 13px; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: 0.3s; }
+        .tab-btn.active { background: var(--primary-light); color: var(--primary); }
 
-        .logout-btn:active {
-            transform: scale(0.9);
-        }
+        /* Users & Ledger Cards */
+        .user-row { display: flex; align-items: center; justify-content: space-between; padding: 16px; background: var(--bg); border-radius: 16px; margin-bottom: 12px; border: 1px solid var(--border); }
+        .user-info { display: flex; align-items: center; gap: 12px; }
+        .user-avatar { width: 40px; height: 40px; border-radius: 12px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; }
+        .user-details h4 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+        .user-details p { font-size: 12px; font-weight: 600; color: var(--text-muted); font-family: monospace; }
+        .btn-icon-danger { width: 36px; height: 36px; border-radius: 10px; background: var(--danger-light); color: var(--danger); border: none; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; }
 
-        .scroll-area {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 20px 100px 20px;
-            scrollbar-width: none;
-            background: var(--bg);
-        }
-
-        .scroll-area::-webkit-scrollbar {
-            display: none;
-        }
-
-        .page {
-            display: none;
-            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section-title {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .section-title i {
-            color: var(--primary);
-        }
-
-        /* Cards */
-        .card {
-            background: var(--surface);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-        }
-
-        /* Dashboard Stats */
-        .stat-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .stat-card {
-            background: var(--surface);
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-        }
-
-        .stat-card .icon-wrapper {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 12px;
-        }
-
-        .stat-card h3 {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 4px;
-            color: var(--text-main);
-        }
-
-        .stat-card p {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        /* Forms & Inputs */
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .input-field {
-            width: 100%;
-            background: var(--bg);
-            border: 2px solid var(--border);
-            color: var(--text-main);
-            padding: 14px 16px;
-            border-radius: 14px;
-            font-size: 15px;
-            outline: none;
-            transition: 0.3s;
-            font-weight: 600;
-        }
-
-        .input-field:focus {
-            border-color: var(--primary);
-            background: var(--surface);
-            box-shadow: 0 0 0 4px var(--primary-light);
-        }
-
-        select.input-field {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 16px;
-        }
-
-        .btn-main {
-            width: 100%;
-            padding: 16px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s;
-            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.2);
-        }
-
-        .btn-main:active {
-            transform: translateY(2px);
-        }
-
-        /* User Profile Rows (Database) */
-        .user-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            background: var(--bg);
-            border-radius: 16px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: var(--primary-light);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 16px;
-        }
-
-        .user-details h4 {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 2px;
-        }
-
-        .user-details p {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            font-family: monospace;
-        }
-
-        .btn-icon-danger {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: var(--danger-light);
-            color: var(--danger);
-            border: none;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-icon-danger:active {
-            transform: scale(0.9);
-        }
-
-        /* Fee Ledger Card (Clean & Understandable) */
-        .fee-card {
-            background: var(--surface);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-        }
-
-        .fee-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f8fafc;
-        }
-
-        .fee-header h4 {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .fee-header p {
-            font-size: 12px;
-            color: var(--text-muted);
-            font-family: monospace;
-            font-weight: 600;
-            margin-top: 2px;
-        }
-
-        .fee-status {
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .fee-status.due {
-            background: var(--danger-light);
-            color: var(--danger);
-        }
-
-        .fee-status.paid {
-            background: var(--success-light);
-            color: var(--success);
-        }
-
-        .fee-stats {
-            display: flex;
-            padding: 20px;
-            gap: 10px;
-        }
-
-        .fee-stat-box {
-            flex: 1;
-            background: var(--bg);
-            padding: 12px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid var(--border);
-        }
-
-        .fee-stat-box p {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .fee-stat-box h4 {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        .fee-stat-box h4.due-amt {
-            color: var(--danger);
-        }
-
-        .fee-stat-box h4.paid-amt {
-            color: var(--success);
-        }
-
-        .fee-action {
-            padding: 0 20px 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .fee-action input {
-            flex: 1;
-            margin: 0;
-        }
-
-        .fee-action button {
-            width: auto;
-            padding: 0 24px;
-            background: var(--success);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
-        }
+        .fee-card { background: var(--surface); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02); }
+        .fee-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #f8fafc; }
+        .fee-header h4 { font-size: 16px; font-weight: 700; }
+        .fee-status { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+        .fee-status.due { background: var(--danger-light); color: var(--danger); }
+        .fee-status.paid { background: var(--success-light); color: var(--success); }
+        .fee-stats { display: flex; padding: 20px; gap: 10px; }
+        .fee-stat-box { flex: 1; background: var(--bg); padding: 12px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
+        .fee-stat-box p { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+        .fee-stat-box h4 { font-size: 16px; font-weight: 800; color: var(--text-main); }
+        .fee-stat-box h4.due-amt { color: var(--danger); }
+        .fee-stat-box h4.paid-amt { color: var(--success); }
+        .fee-action { padding: 0 20px 20px; display: flex; gap: 10px; }
+        .fee-action input { flex: 1; margin: 0; }
+        .fee-action button { width: auto; padding: 0 24px; background: var(--success); box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2); }
 
         /* Bottom Nav */
-        .bottom-nav {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            background: var(--surface);
-            padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
-            display: flex;
-            justify-content: space-around;
-            border-top: 1px solid var(--border);
-            z-index: 100;
-        }
+        .bottom-nav { position: absolute; bottom: 0; width: 100%; background: var(--surface); padding: 12px 10px calc(12px + env(safe-area-inset-bottom)); display: flex; justify-content: space-between; border-top: 1px solid var(--border); z-index: 100; }
+        @media(min-width:450px) { .bottom-nav { border-bottom-left-radius: 32px; border-bottom-right-radius: 32px; } }
+        .nav-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); background: none; border: none; font-size: 10px; font-weight: 600; cursor: pointer; flex: 1; }
+        .nav-btn i { font-size: 22px; padding: 6px 14px; border-radius: 12px; transition: 0.3s; }
+        .nav-btn.active { color: var(--primary); }
+        .nav-btn.active i { background: var(--primary-light); transform: translateY(-2px); }
 
-        @media(min-width:450px) {
-            .bottom-nav {
-                border-bottom-left-radius: 32px;
-                border-bottom-right-radius: 32px;
-            }
-        }
-
-        .nav-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-muted);
-            background: none;
-            border: none;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            width: 65px;
-        }
-
-        .nav-btn i {
-            font-size: 24px;
-            padding: 8px 16px;
-            border-radius: 12px;
-            transition: 0.3s;
-        }
-
-        .nav-btn.active {
-            color: var(--primary);
-        }
-
-        .nav-btn.active i {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-        }
-
-        /* Toast */
-        .toast {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
-            padding: 16px 24px;
-            border-radius: 100px;
-            background: var(--text-main);
-            color: white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 10000;
-            font-weight: 600;
-            font-size: 14px;
-            white-space: nowrap;
-        }
-
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .toast i {
-            font-size: 20px;
-        }
-
-        .toast.error i {
-            color: var(--danger);
-        }
-
-        .toast.success i {
-            color: var(--success);
-        }
+        .toast { position: absolute; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); padding: 16px 24px; border-radius: 100px; background: var(--text-main); color: white; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 12px; transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 10000; font-weight: 600; font-size: 14px; white-space: nowrap; }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        .toast.error i { color: var(--danger); }
+        .toast.success i { color: var(--success); }
     </style>
 </head>
 
 <body>
     <div class="app-container">
-        <div class="loader-full" id="mainLoader">
-            <i class='bx bx-loader-alt bx-spin' style="font-size: 48px; color: var(--primary);"></i>
-            <p style="margin-top: 16px; font-weight: 600; color: var(--text-muted);">Loading Panel...</p>
-        </div>
+        <div class="loader-full" id="mainLoader"><i class='bx bx-loader-alt bx-spin' style="font-size: 48px; color: var(--primary);"></i><p style="margin-top: 16px; font-weight: 600; color: var(--text-muted);">Loading Panel...</p></div>
         <div class="toast" id="toastBox"><i class='bx bx-info-circle'></i> <span id="toastMsg">Message</span></div>
 
-        <!-- LOGIN SECTION -->
+        <!-- LOGIN -->
         <div id="loginSection" class="login-wrapper" style="display: none;">
             <div class="login-container">
                 <div class="logo-box"><i class='bx bx-shield-quarter'></i></div>
                 <h1>Admin Portal</h1>
                 <p>Secure System Verification</p>
-                <div class="input-group">
-                    <input type="text" id="regNo" class="input-login" placeholder="Admin ID">
-                    <i class='bx bx-user'></i>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="regPass" class="input-login" placeholder="Access Key">
-                    <i class='bx bx-lock-alt'></i>
-                </div>
-                <button class="btn-main" onclick="loginAdmin()" id="loginBtn">Authenticate <i
-                        class='bx bx-right-arrow-alt'></i></button>
+                <div class="input-group"><input type="text" id="regNo" class="input-login" placeholder="Admin ID"><i class='bx bx-user'></i></div>
+                <div class="input-group"><input type="password" id="regPass" class="input-login" placeholder="Access Key"><i class='bx bx-lock-alt'></i></div>
+                <button class="btn-main" onclick="loginAdmin()" id="loginBtn">Authenticate <i class='bx bx-right-arrow-alt'></i></button>
             </div>
         </div>
 
-        <!-- APP SECTION -->
+        <!-- APP -->
         <div id="mainApp" style="display: none;">
             <header class="app-header">
-                <div class="header-title">
-                    <h2>Command Center</h2>
-                    <p>Science College Administrator</p>
-                </div>
+                <div class="header-title"><h2>Command Center</h2><p>Science College Administrator</p></div>
                 <button class="logout-btn" onclick="logout()"><i class='bx bx-log-out-circle'></i></button>
             </header>
 
@@ -677,207 +152,184 @@
                 <div id="page-home" class="page active">
                     <div class="section-title"><i class='bx bx-line-chart'></i> Financial Overview</div>
                     <div class="stat-grid">
-                        <div class="stat-card">
-                            <div class="icon-wrapper" style="background: var(--success-light); color: var(--success);">
-                                <i class='bx bx-rupee'></i></div>
-                            <h3 id="dashPaid">0</h3>
-                            <p>Total Collected</p>
-                        </div>
-                        <div class="stat-card">
-                            <div class="icon-wrapper" style="background: var(--danger-light); color: var(--danger);"><i
-                                    class='bx bx-error-circle'></i></div>
-                            <h3 id="dashPending">0</h3>
-                            <p>Total Pending</p>
-                        </div>
-                    </div>
-
-                    <div class="section-title"><i class='bx bx-slider-alt'></i> Quick Management</div>
-                    <div class="card" style="display: flex; gap: 16px; padding: 20px;">
-                        <button class="btn-main"
-                            style="flex: 1; background: var(--bg); color: var(--text-main); border: 1px solid var(--border); box-shadow: none;"
-                            onclick="switchPage('users', document.querySelectorAll('.nav-btn')[1])">
-                            <i class='bx bx-user-plus' style="font-size:22px; color:var(--primary);"></i> Add User
-                        </button>
-                        <button class="btn-main"
-                            style="flex: 1; background: var(--bg); color: var(--text-main); border: 1px solid var(--border); box-shadow: none;"
-                            onclick="switchPage('fees', document.querySelectorAll('.nav-btn')[3])">
-                            <i class='bx bx-wallet' style="font-size:22px; color:var(--success);"></i> Ledger
-                        </button>
+                        <div class="stat-card"><div class="icon-wrapper" style="background: var(--success-light); color: var(--success);"><i class='bx bx-rupee'></i></div><h3 id="dashPaid">0</h3><p>Total Collected</p></div>
+                        <div class="stat-card"><div class="icon-wrapper" style="background: var(--danger-light); color: var(--danger);"><i class='bx bx-error-circle'></i></div><h3 id="dashPending">0</h3><p>Total Pending</p></div>
                     </div>
                 </div>
 
-                <!-- USERS / PROVISION -->
+                <!-- REGISTER USER -->
                 <div id="page-users" class="page">
                     <div class="section-title"><i class='bx bx-user-plus'></i> Register New Entity</div>
                     <div class="card">
                         <div class="form-group">
-                            <label>Account Role</label>
-                            <select id="newUserRole" class="input-field"
-                                onchange="document.getElementById('feeGroup').style.display = this.value==='teacher' ? 'none' : 'block'">
-                                <option value="student">Science Student (PCMB)</option>
+                            <label>Account Role & Year</label>
+                            <select id="newUserRole" class="input-field" onchange="document.getElementById('feeGroup').style.display = this.value==='teacher' ? 'none' : 'block'">
+                                <option value="student_1">1st Year Student (PCMB)</option>
+                                <option value="student_2">2nd Year Student (PCMB)</option>
                                 <option value="teacher">Faculty Member</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" id="newName" class="input-field" placeholder="Enter Full Name">
-                        </div>
-                        <div class="form-group">
-                            <label>Unique ID</label>
-                            <input type="text" id="newRegNo" class="input-field" placeholder="Roll No / Employee ID">
-                        </div>
-                        <div class="form-group">
-                            <label>Secure Password</label>
-                            <input type="text" id="newPass" class="input-field" placeholder="Assign Login Password">
-                        </div>
-                        <div class="form-group" id="feeGroup">
-                            <label>Total Assigned Fees (₹)</label>
-                            <input type="number" id="newFees" class="input-field" placeholder="e.g. 50000">
-                        </div>
-                        <button class="btn-main" onclick="createUser()" id="btnCreate" style="margin-top: 24px;">Create
-                            Account</button>
+                        <div class="form-group"><label>Full Name</label><input type="text" id="newName" class="input-field" placeholder="Enter Full Name"></div>
+                        <div class="form-group"><label>Unique ID</label><input type="text" id="newRegNo" class="input-field" placeholder="Roll No / Employee ID"></div>
+                        <div class="form-group"><label>Secure Password</label><input type="text" id="newPass" class="input-field" placeholder="Assign Login Password"></div>
+                        <div class="form-group" id="feeGroup"><label>Total Assigned Fees (₹)</label><input type="number" id="newFees" class="input-field" placeholder="e.g. 50000"></div>
+                        <button class="btn-main" onclick="createUser()" id="btnCreate" style="margin-top: 24px;">Create Account</button>
                     </div>
                 </div>
 
                 <!-- DATABASE -->
                 <div id="page-db" class="page">
                     <div class="section-title"><i class='bx bx-data'></i> System Database</div>
-
-                    <div class="card" style="padding: 0; overflow: hidden; margin-bottom: 24px;">
-                        <div
-                            style="background: var(--bg); padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                            <h4 style="font-size:15px; font-weight:700; color:var(--text-main);">Enrolled Students</h4>
-                            <span
-                                style="background: var(--primary); color: white; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;"
-                                id="countStud">0</span>
-                        </div>
-                        <div id="dbStudents" style="padding: 16px; max-height: 300px; overflow-y: auto;">
-                            <p style="text-align:center; color:var(--text-muted); font-size:13px; font-weight:600;">
-                                Loading database...</p>
-                        </div>
+                    <div class="input-group" style="margin-bottom: 16px;">
+                        <i class='bx bx-search'></i><input type="text" id="searchDatabase" class="input-field" style="padding-left: 48px;" placeholder="Search user..." onkeyup="filterDatabase()">
                     </div>
 
-                    <div class="card" style="padding: 0; overflow: hidden;">
-                        <div
-                            style="background: var(--bg); padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                            <h4 style="font-size:15px; font-weight:700; color:var(--text-main);">Faculty Members</h4>
-                            <span
-                                style="background: var(--accent); color: white; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;"
-                                id="countTeach">0</span>
+                    <div class="tab-container">
+                        <button class="tab-btn active" id="tabDb1" onclick="switchDbTab(1)">1st Year</button>
+                        <button class="tab-btn" id="tabDb2" onclick="switchDbTab(2)">2nd Year</button>
+                        <button class="tab-btn" id="tabDbT" onclick="switchDbTab('T')">Teachers</button>
+                    </div>
+
+                    <div class="card db-card" id="cardDb1" style="padding: 0; overflow: hidden; margin-bottom: 24px;">
+                        <div style="background: var(--bg); padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                            <h4 style="font-size:15px; font-weight:700;">1st Year Students</h4>
+                            <span style="background: var(--primary); color: white; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;" id="countStud1">0</span>
                         </div>
-                        <div id="dbTeachers" style="padding: 16px; max-height: 300px; overflow-y: auto;">
-                            <p style="text-align:center; color:var(--text-muted); font-size:13px; font-weight:600;">
-                                Loading database...</p>
+                        <div id="dbStudents1" style="padding: 16px; max-height: 350px; overflow-y: auto;"></div>
+                    </div>
+
+                    <div class="card db-card" id="cardDb2" style="padding: 0; overflow: hidden; margin-bottom: 24px; display: none;">
+                        <div style="background: var(--bg); padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                            <h4 style="font-size:15px; font-weight:700;">2nd Year Students</h4>
+                            <span style="background: var(--warning); color: white; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;" id="countStud2">0</span>
                         </div>
+                        <div id="dbStudents2" style="padding: 16px; max-height: 350px; overflow-y: auto;"></div>
+                    </div>
+
+                    <div class="card db-card" id="cardDbT" style="padding: 0; overflow: hidden; display: none;">
+                        <div style="background: var(--bg); padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                            <h4 style="font-size:15px; font-weight:700;">Faculty Members</h4>
+                            <span style="background: var(--success); color: white; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;" id="countTeach">0</span>
+                        </div>
+                        <div id="dbTeachers" style="padding: 16px; max-height: 350px; overflow-y: auto;"></div>
                     </div>
                 </div>
 
                 <!-- FEES LEDGER -->
                 <div id="page-fees" class="page">
                     <div class="section-title"><i class='bx bx-receipt'></i> Student Fee Ledger</div>
-                    <div id="adminStudentList">
-                        <p
-                            style="text-align:center; color:var(--text-muted); font-size:14px; font-weight:600; padding: 40px;">
-                            Fetching ledger data...</p>
+                    <div class="input-group" style="margin-bottom: 16px;">
+                        <i class='bx bx-search'></i><input type="text" id="searchLedger" class="input-field" style="padding-left: 48px;" placeholder="Search by Name/ID..." onkeyup="filterLedger()">
+                    </div>
+
+                    <div class="tab-container">
+                        <button class="tab-btn active" id="tabLed1" onclick="switchLedgerTab(1)">1st Year Fees</button>
+                        <button class="tab-btn" id="tabLed2" onclick="switchLedgerTab(2)">2nd Year Fees</button>
+                    </div>
+
+                    <div id="adminStudentList1"></div>
+                    <div id="adminStudentList2" style="display:none;"></div>
+                </div>
+
+                <!-- SUBJECT UPLOAD -->
+                <div id="page-subjects" class="page">
+                    <div class="section-title"><i class='bx bx-book-open'></i> Upload Study Material</div>
+                    <div class="card">
+                        <div class="form-group">
+                            <label>Target Year</label>
+                            <select id="uploadYear" class="input-field">
+                                <option value="1">1st Year (PCMB)</option>
+                                <option value="2">2nd Year (PCMB)</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Subject & Chapter</label><input type="text" class="input-field" placeholder="e.g. Physics - Kinematics"></div>
+                        <div class="form-group"><label>Drive / Material Link</label><input type="text" class="input-field" placeholder="Paste link here..."></div>
+                        <button class="btn-main" onclick="showToast('Subject uploaded successfully! (Mock)', 'success')" style="margin-top: 24px;"><i class='bx bx-upload'></i> Publish Material</button>
                     </div>
                 </div>
             </div>
 
+            <!-- BOTTOM NAVIGATION -->
             <nav class="bottom-nav">
-                <button class="nav-btn active" onclick="switchPage('home', this)"><i
-                        class='bx bx-grid-alt'></i><span>Home</span></button>
-                <button class="nav-btn" onclick="switchPage('users', this)"><i
-                        class='bx bx-user-plus'></i><span>Register</span></button>
-                <button class="nav-btn" onclick="switchPage('db', this)"><i
-                        class='bx bx-folder'></i><span>Database</span></button>
-                <button class="nav-btn" onclick="switchPage('fees', this)"><i
-                        class='bx bx-wallet-alt'></i><span>Ledger</span></button>
+                <button class="nav-btn active" onclick="switchPage('home', this)"><i class='bx bx-grid-alt'></i><span>Home</span></button>
+                <button class="nav-btn" onclick="switchPage('users', this)"><i class='bx bx-user-plus'></i><span>Register</span></button>
+                <button class="nav-btn" onclick="switchPage('db', this)"><i class='bx bx-folder'></i><span>Database</span></button>
+                <button class="nav-btn" onclick="switchPage('fees', this)"><i class='bx bx-wallet-alt'></i><span>Ledger</span></button>
+                <button class="nav-btn" onclick="switchPage('subjects', this)"><i class='bx bx-book'></i><span>Subjects</span></button>
             </nav>
         </div>
     </div>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzbg_p2xLIuEeqQTLJtPrITs1E9EmYqRbhmz9lgExEUrLq0t3Kwu7eku_8LN9eKS21v/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbyUlEgkmxTF-8UajU9laehosQIYsvGz4mil1eXOzCM4RZb8uPngOysfG21d6HWV1x30/exec';
 
         window.onload = () => {
-            const storedRole = localStorage.getItem('userRole');
-            if (storedRole === 'admin') {
+            if (localStorage.getItem('userRole') === 'admin') {
                 document.getElementById('loginSection').style.display = 'none';
                 document.getElementById('mainApp').style.display = 'flex';
-                loadDashboardStats();
-                loadAdminDatabaseView();
-                loadAdminStudents();
+                loadDashboardStats(); loadAdminDatabaseView(); loadAdminStudents();
             } else {
                 document.getElementById('mainApp').style.display = 'none';
                 document.getElementById('loginSection').style.display = 'flex';
             }
-            setTimeout(() => {
-                document.getElementById('mainLoader').style.opacity = '0';
-                setTimeout(() => document.getElementById('mainLoader').style.display = 'none', 500);
-            }, 600);
+            setTimeout(() => { document.getElementById('mainLoader').style.opacity = '0'; setTimeout(() => document.getElementById('mainLoader').style.display = 'none', 500); }, 600);
         };
 
         function showToast(msg, type = 'info') {
-            const toast = document.getElementById('toastBox');
+            const t = document.getElementById('toastBox');
             document.getElementById('toastMsg').innerText = msg;
-            toast.className = `toast show ${type}`;
-            toast.querySelector('i').className = type === 'error' ? 'bx bxs-error-circle' : 'bx bxs-check-circle';
-            setTimeout(() => toast.classList.remove('show'), 3000);
+            t.className = `toast show ${type}`;
+            t.querySelector('i').className = type === 'error' ? 'bx bxs-error-circle' : 'bx bxs-check-circle';
+            setTimeout(() => t.classList.remove('show'), 3000);
         }
 
         async function loginAdmin() {
-            const regNo = document.getElementById('regNo').value.trim();
-            const pass = document.getElementById('regPass').value.trim();
-            if (!regNo || !pass) return showToast("Please fill all fields", "error");
-
-            const btn = document.getElementById('loginBtn');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Authenticating...";
-            btn.style.pointerEvents = 'none'; btn.style.opacity = '0.8';
-
+            const r = document.getElementById('regNo').value.trim(), p = document.getElementById('regPass').value.trim();
+            if (!r || !p) return showToast("Fill all fields", "error");
+            const btn = document.getElementById('loginBtn'); const org = btn.innerHTML;
+            btn.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Authenticating..."; btn.style.pointerEvents = 'none';
             try {
-                const res = await fetch(`${API_URL}?action=login`, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ register_no: regNo, password: pass }) });
-                const data = await res.json();
-
-                btn.innerHTML = originalText;
-                btn.style.pointerEvents = 'auto'; btn.style.opacity = '1';
-
-                if (data.status === 'error' || data.error) {
-                    showToast(data.message || data.error, "error");
-                } else if (data.role !== 'admin') {
-                    showToast("Access Denied: Admin role required.", "error");
-                } else {
-                    showToast("Login Successful!", "success");
-                    localStorage.setItem('userRegNo', data.register_no);
-                    localStorage.setItem('userName', data.name);
-                    localStorage.setItem('userRole', data.role);
-
-                    setTimeout(() => { window.location.reload(); }, 800);
-                }
-            } catch (err) {
-                btn.innerHTML = originalText;
-                btn.style.pointerEvents = 'auto'; btn.style.opacity = '1';
-                showToast("Connection Error. Check network.", "error");
-            }
+                const res = await (await fetch(`${API_URL}?action=login`, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ register_no: r, password: p }) })).json();
+                btn.innerHTML = org; btn.style.pointerEvents = 'auto';
+                if (res.status === 'error' || res.error) showToast(res.message || res.error, "error");
+                else if (res.role !== 'admin') showToast("Admin role required.", "error");
+                else { showToast("Login Successful!", "success"); localStorage.setItem('userRole', res.role); setTimeout(() => window.location.reload(), 800); }
+            } catch (err) { btn.innerHTML = org; btn.style.pointerEvents = 'auto'; showToast("Connection Error.", "error"); }
         }
 
         function logout() { localStorage.clear(); window.location.reload(); }
 
-        function switchPage(pageId, btnElement = null) {
+        function switchPage(pageId, btn) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('page-' + pageId).classList.add('active');
-            if (btnElement) {
-                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                btnElement.classList.add('active');
-            }
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             document.querySelector('.scroll-area').scrollTop = 0;
         }
 
+        function switchDbTab(tab) {
+            ['1', '2', 'T'].forEach(t => {
+                document.getElementById('tabDb' + t).classList.remove('active');
+                document.getElementById('cardDb' + t).style.display = 'none';
+            });
+            document.getElementById('tabDb' + tab).classList.add('active');
+            document.getElementById('cardDb' + tab).style.display = 'block';
+        }
+
+        function switchLedgerTab(tab) {
+            document.getElementById('tabLed1').classList.remove('active');
+            document.getElementById('tabLed2').classList.remove('active');
+            document.getElementById('adminStudentList1').style.display = 'none';
+            document.getElementById('adminStudentList2').style.display = 'none';
+            
+            document.getElementById('tabLed' + tab).classList.add('active');
+            document.getElementById('adminStudentList' + tab).style.display = 'block';
+        }
+
         async function fetchData(action, method = 'GET', data = null) {
-            let options = { method: method };
-            if (method === 'POST') { options.headers = { 'Content-Type': 'text/plain' }; options.body = JSON.stringify(data); }
-            try { const res = await fetch(`${API_URL}?action=${action}`, options); return await res.json(); }
-            catch (err) { return { error: true }; }
+            let opt = { method: method };
+            if (method === 'POST') { opt.headers = { 'Content-Type': 'text/plain' }; opt.body = JSON.stringify(data); }
+            try { return await (await fetch(`${API_URL}?action=${action}`, opt)).json(); } catch { return { error: true }; }
         }
 
         async function loadDashboardStats() {
@@ -898,11 +350,8 @@
             };
             if (!payload.name || !payload.register_no || !payload.password) return showToast("Fill all details.", "error");
 
-            const btn = document.getElementById('btnCreate');
-            const org = btn.innerHTML;
-            btn.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Processing...";
-            btn.style.pointerEvents = 'none';
-
+            const btn = document.getElementById('btnCreate'); const org = btn.innerHTML;
+            btn.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Processing..."; btn.style.pointerEvents = 'none';
             const res = await fetchData('addUser', 'POST', payload);
             btn.innerHTML = org; btn.style.pointerEvents = 'auto';
 
@@ -914,17 +363,12 @@
         }
 
         function buildUserRow(u, type) {
-            return `
-            <div class="user-row">
-                <div class="user-info">
-                    <div class="user-avatar" style="background:var(--${type === 'teacher' ? 'accent' : 'primary'}-light); color:var(--${type === 'teacher' ? 'accent' : 'primary'});">${u.name.charAt(0).toUpperCase()}</div>
-                    <div class="user-details">
-                        <h4>${u.name}</h4>
-                        <p>ID: ${u.register_no} &bull; Pass: ${u.password}</p>
-                    </div>
-                </div>
-                <button class="btn-icon-danger" onclick="delUser('${u.register_no}', '${type}')"><i class='bx bx-trash'></i></button>
-            </div>`;
+            let color = type === 'teacher' ? 'success' : (type === 'student_2' ? 'warning' : 'primary');
+            let safeId = u.register_no ? u.register_no.toString().replace(/'/g, "\\'") : '';
+            
+            return `<div class="user-row"><div class="user-info"><div class="user-avatar" style="background:var(--${color}-light); color:var(--${color});">${u.name.charAt(0).toUpperCase()}</div>
+                    <div class="user-details"><h4>${u.name}</h4><p>ID: ${u.register_no} &bull; Pass: ${u.password}</p></div></div>
+                    <button class="btn-icon-danger" onclick="delUser('${safeId}', '${u.role || type}')"><i class='bx bx-trash'></i></button></div>`;
         }
 
         async function loadAdminDatabaseView() {
@@ -932,89 +376,104 @@
             const teachers = await fetchData('getTeachers');
 
             if (!students.error) {
-                document.getElementById('countStud').innerText = students.length;
-                let h = '';
-                if (students.length === 0) h = "<p style='text-align:center; color:var(--text-muted); font-size:13px;'>No students found.</p>";
-                students.forEach(s => h += buildUserRow(s, 'student'));
-                document.getElementById('dbStudents').innerHTML = h;
+                let s1 = [], s2 = [];
+                students.forEach(s => { if (s.role === 'student_2') s2.push(s); else s1.push(s); });
+
+                document.getElementById('countStud1').innerText = s1.length;
+                document.getElementById('dbStudents1').innerHTML = s1.length ? s1.map(s => buildUserRow(s, 'student_1')).join('') : "<p style='text-align:center; color:var(--text-muted); font-size:13px;'>No 1st year students.</p>";
+                
+                document.getElementById('countStud2').innerText = s2.length;
+                document.getElementById('dbStudents2').innerHTML = s2.length ? s2.map(s => buildUserRow(s, 'student_2')).join('') : "<p style='text-align:center; color:var(--text-muted); font-size:13px;'>No 2nd year students.</p>";
             }
             if (!teachers.error) {
                 document.getElementById('countTeach').innerText = teachers.length;
-                let h = '';
-                if (teachers.length === 0) h = "<p style='text-align:center; color:var(--text-muted); font-size:13px;'>No faculty found.</p>";
-                teachers.forEach(t => h += buildUserRow(t, 'teacher'));
-                document.getElementById('dbTeachers').innerHTML = h;
+                document.getElementById('dbTeachers').innerHTML = teachers.length ? teachers.map(t => buildUserRow(t, 'teacher')).join('') : "<p style='text-align:center; color:var(--text-muted); font-size:13px;'>No faculty found.</p>";
             }
+        }
+
+        async function loadAdminStudents() {
+            const students = await fetchData('getStudents');
+            if (students.error) return;
+
+            let h1 = '', h2 = '';
+            students.forEach(st => {
+                let total = parseInt(st.total_fees || st.total_fee || st.Total_Fee || 0);
+                let paid = parseInt(st.paid_fees || st['Paid Fee'] || st.paid || st.Paid_Fee || 0);
+                let rem = (total - paid) || 0; let isDue = rem > 0;
+                let safeId = st.register_no ? st.register_no.toString().replace(/'/g, "\\'") : '';
+
+                // FIX: Passing "this" directly in onclick to find the correct input box 
+                let actionDiv = isDue 
+                    ? `<div class="fee-action">
+                           <input type="number" class="input-field fee-input" placeholder="Enter Amount (₹)">
+                           <button class="btn-main" onclick="payFee(this, '${safeId}')">Update</button>
+                       </div>`
+                    : `<div class="fee-action" style="justify-content: center;"><div style="background: var(--success-light); color: var(--success); padding: 12px 24px; border-radius: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; width: 100%; justify-content: center;"><i class='bx bxs-check-circle' style="font-size: 20px;"></i> All Dues Cleared</div></div>`;
+
+                let cardHTML = `<div class="fee-card"><div class="fee-header"><div class="user-info" style="gap:10px;"><div class="user-avatar" style="width:36px; height:36px; font-size:14px;">${st.name.charAt(0).toUpperCase()}</div><div class="user-details"><h4 style="margin:0;">${st.name}</h4><p style="margin:0;">ID: ${st.register_no}</p></div></div><div class="fee-status ${isDue ? 'due' : 'paid'}">${isDue ? 'Due' : 'Cleared'}</div></div><div class="fee-stats"><div class="fee-stat-box"><p>Total</p><h4>₹${total}</h4></div><div class="fee-stat-box"><p>Paid</p><h4 class="paid-amt">₹${paid}</h4></div><div class="fee-stat-box" style="background:${isDue ? 'var(--danger-light)' : 'var(--bg)'}; border-color:${isDue ? '#fca5a5' : 'var(--border)'};"><p style="color:${isDue ? 'var(--danger)' : 'var(--text-muted)'}">Balance</p><h4 class="${isDue ? 'due-amt' : ''}">₹${rem}</h4></div></div>${actionDiv}</div>`;
+                
+                if (st.role === 'student_2') h2 += cardHTML;
+                else h1 += cardHTML;
+            });
+
+            document.getElementById('adminStudentList1').innerHTML = h1 || "<p style='text-align:center; padding:20px;'>No records.</p>";
+            document.getElementById('adminStudentList2').innerHTML = h2 || "<p style='text-align:center; padding:20px;'>No records.</p>";
         }
 
         async function delUser(id, role) {
             if (!confirm(`Are you sure you want to delete ${id}?`)) return;
             await fetchData('deleteUser', 'POST', { register_no: id, role: role });
-            showToast("User Deleted", "success");
-            loadAdminDatabaseView(); loadAdminStudents(); loadDashboardStats();
+            showToast("User Deleted", "success"); loadAdminDatabaseView(); loadAdminStudents(); loadDashboardStats();
         }
 
-        async function loadAdminStudents() {
-            const s = await fetchData('getStudents');
-            if (s.error) return;
-            let h = '';
-            if (s.length === 0) h = "<p style='text-align:center; color:var(--text-muted); font-size:14px; font-weight:600; padding: 40px;'>No student records found.</p>";
+        // FIX: Directly parsing input from DOM instead of ID mapping
+        async function payFee(btnElement, id) {
+            // Find the input box directly before the button
+            const inputField = btnElement.previousElementSibling; 
+            const amt = parseFloat(inputField.value);
 
-            s.forEach(st => {
-                let total = parseInt(st.total_fees || st.total_fee || st.Total_Fee || 0);
-                let paid = parseInt(st.paid_fees || st['Paid Fee'] || st.paid || st.Paid_Fee || 0);
-                let rem = (total - paid) || 0;
-                let isDue = rem > 0;
-
-                h += `
-                <div class="fee-card">
-                    <div class="fee-header">
-                        <div class="user-info" style="gap:10px;">
-                            <div class="user-avatar" style="width:36px; height:36px; font-size:14px;">${st.name.charAt(0).toUpperCase()}</div>
-                            <div class="user-details">
-                                <h4 style="margin:0;">${st.name}</h4>
-                                <p style="margin:0;">ID: ${st.register_no}</p>
-                            </div>
-                        </div>
-                        <div class="fee-status ${isDue ? 'due' : 'paid'}">${isDue ? 'Due' : 'Cleared'}</div>
-                    </div>
-                    <div class="fee-stats">
-                        <div class="fee-stat-box">
-                            <p>Total</p>
-                            <h4>₹${total}</h4>
-                        </div>
-                        <div class="fee-stat-box">
-                            <p>Paid</p>
-                            <h4 class="paid-amt">₹${paid}</h4>
-                        </div>
-                        <div class="fee-stat-box" style="background:${isDue ? 'var(--danger-light)' : 'var(--bg)'}; border-color:${isDue ? '#fca5a5' : 'var(--border)'};">
-                            <p style="color:${isDue ? 'var(--danger)' : 'var(--text-muted)'}">Balance</p>
-                            <h4 class="${isDue ? 'due-amt' : ''}">₹${rem}</h4>
-                        </div>
-                    </div>
-                    <div class="fee-action">
-                        <input type="number" id="pay_${st.register_no}" class="input-field" placeholder="Enter Amount (₹)">
-                        <button class="btn-main" onclick="payFee('${st.register_no}')">Update</button>
-                    </div>
-                </div>`;
-            });
-            document.getElementById('adminStudentList').innerHTML = h;
-        }
-
-        async function payFee(id) {
-            const amt = parseFloat(document.getElementById(`pay_${id}`).value);
-            if (!amt || amt <= 0) return showToast("Enter a valid amount", "error");
-
-            showToast("Processing...", "info");
-            const res = await fetchData('updateFee', 'POST', { register_no: id, amount: amt });
-            if (res.status === 'success') {
-                showToast("Ledger Updated Successfully", "success");
-                loadAdminStudents();
-                loadDashboardStats();
+            if (!amt || isNaN(amt) || amt <= 0) {
+                return showToast("Enter a valid amount", "error");
             }
-            else showToast("Error updating fee.", "error");
+            
+            // Add Loading Spinner to Button
+            const originalText = btnElement.innerHTML;
+            btnElement.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Processing...";
+            btnElement.style.pointerEvents = 'none';
+
+            showToast("Updating Server...", "info");
+            const res = await fetchData('updateFee', 'POST', { register_no: id, amount: amt });
+            
+            btnElement.innerHTML = originalText;
+            btnElement.style.pointerEvents = 'auto';
+
+            if (res.status === 'success') { 
+                showToast("Ledger Updated Successfully!", "success"); 
+                loadAdminStudents(); 
+                loadDashboardStats(); 
+            } else { 
+                showToast("Error updating fee: " + (res.message || ""), "error"); 
+            }
+        }
+
+        // SEARCH FILTERS
+        function filterLedger() {
+            const query = document.getElementById('searchLedger').value.toLowerCase();
+            document.querySelectorAll('#page-fees .fee-card').forEach(card => {
+                const name = card.querySelector('.user-details h4').innerText.toLowerCase();
+                const id = card.querySelector('.user-details p').innerText.toLowerCase();
+                card.style.display = (name.includes(query) || id.includes(query)) ? 'block' : 'none';
+            });
+        }
+
+        function filterDatabase() {
+            const query = document.getElementById('searchDatabase').value.toLowerCase();
+            document.querySelectorAll('#page-db .user-row').forEach(row => {
+                const name = row.querySelector('.user-details h4').innerText.toLowerCase();
+                const details = row.querySelector('.user-details p').innerText.toLowerCase();
+                row.style.display = (name.includes(query) || details.includes(query)) ? 'flex' : 'none';
+            });
         }
     </script>
 </body>
-
 </html>
