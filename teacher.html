@@ -289,6 +289,13 @@
             margin-bottom: 16px;
             color: var(--text);
             letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title i {
+            color: var(--primary);
         }
 
         .card {
@@ -300,6 +307,50 @@
             border: 1px solid rgba(0, 0, 0, 0.02);
         }
 
+        /* --- TABS --- */
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            background: #f1f5f9;
+            padding: 6px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .tab-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- FORM STYLES --- */
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .input-field {
             width: 100%;
             padding: 16px 18px;
@@ -308,7 +359,6 @@
             border-radius: 16px;
             font-size: 15px;
             color: var(--text);
-            margin-bottom: 16px;
             transition: 0.3s;
             font-weight: 600;
         }
@@ -318,6 +368,15 @@
             border-color: var(--primary);
             outline: none;
             box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+        }
+
+        select.input-field {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            cursor: pointer;
         }
 
         .student-row {
@@ -468,6 +527,8 @@
         <div class="loader-full" id="mainLoader"><i class='bx bx-loader-alt bx-spin'
                 style="font-size: 40px; color: var(--primary);"></i></div>
         <div class="toast" id="toastBox"><i class='bx bx-info-circle'></i> <span id="toastMsg">Message</span></div>
+        
+        <!-- LOGIN SECTION -->
         <div id="loginSection" class="login-wrapper" style="display: none;">
             <div class="login-container">
                 <div class="logo-box"><i class='bx bx-briefcase-alt-2'></i></div>
@@ -485,6 +546,8 @@
                         class='bx bx-right-arrow-alt'></i></button>
             </div>
         </div>
+
+        <!-- APP SECTION -->
         <div id="mainApp" style="display: none;">
             <header class="app-header">
                 <div class="header-profile">
@@ -496,7 +559,9 @@
                 </div>
                 <button class="logout-btn" onclick="logout()"><i class='bx bx-power-off'></i></button>
             </header>
+
             <div class="scroll-area">
+                <!-- HOME -->
                 <div id="page-home" class="page active">
                     <div class="card"
                         style="background: linear-gradient(135deg, var(--primary), #ec4899); color: white; border:none; box-shadow: 0 15px 35px rgba(124, 58, 237, 0.3);">
@@ -534,48 +599,92 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- ATTENDANCE -->
                 <div id="page-attendance" class="page">
                     <div class="section-title">Mark Science Batch Roll Call</div>
                     <div class="card">
                         <input type="date" id="attDate" class="input-field"
                             style="background:#f8fafc; font-weight:700; color:var(--primary); font-size:16px;">
-                        <div id="teacherStudentList" style="margin-bottom: 24px;">
-                            <p
-                                style="text-align:center; color:var(--text-light); font-size:14px; padding: 20px; font-weight:600;">
-                                Fetching student roster...</p>
+                            
+                        <!-- Tabs for Attendance -->
+                        <div class="tab-container">
+                            <button class="tab-btn active" id="tabAtt1" onclick="switchAttTab(1)">1st Year</button>
+                            <button class="tab-btn" id="tabAtt2" onclick="switchAttTab(2)">2nd Year</button>
                         </div>
+
+                        <!-- 1st Year List -->
+                        <div id="attList1" style="margin-bottom: 24px;">
+                            <p style="text-align:center; color:var(--text-light); font-size:14px; padding: 20px; font-weight:600;">Fetching student roster...</p>
+                        </div>
+                        
+                        <!-- 2nd Year List -->
+                        <div id="attList2" style="margin-bottom: 24px; display: none;">
+                            <p style="text-align:center; color:var(--text-light); font-size:14px; padding: 20px; font-weight:600;">Fetching student roster...</p>
+                        </div>
+
                         <button class="btn-main" onclick="submitAttendance()" id="btnSubmitAtt"><i
                                 class='bx bx-save'></i> Commit Records</button>
                     </div>
                 </div>
+
+                <!-- REPORT -->
                 <div id="page-report" class="page">
                     <div class="section-title">Batch Analytics</div>
-                    <div class="card" id="teacherReportList">
-                        <p
-                            style="text-align:center; color:var(--text-light); font-size:14px; padding: 20px; font-weight:600;">
-                            Aggregating data...</p>
+                    
+                    <div class="input-group" style="margin-bottom: 16px;">
+                        <i class='bx bx-search'></i>
+                        <input type="text" id="searchReport" class="input-field" style="padding-left: 48px;" placeholder="Search student name..." onkeyup="filterReport()">
+                    </div>
+
+                    <!-- Tabs for Report -->
+                    <div class="tab-container">
+                        <button class="tab-btn active" id="tabRep1" onclick="switchRepTab(1)">1st Year</button>
+                        <button class="tab-btn" id="tabRep2" onclick="switchRepTab(2)">2nd Year</button>
+                    </div>
+
+                    <!-- 1st Year Report List -->
+                    <div class="card" id="repList1">
+                        <p style="text-align:center; color:var(--text-light); font-size:14px; padding: 20px; font-weight:600;">Aggregating data...</p>
+                    </div>
+
+                    <!-- 2nd Year Report List -->
+                    <div class="card" id="repList2" style="display: none;">
+                        <p style="text-align:center; color:var(--text-light); font-size:14px; padding: 20px; font-weight:600;">Aggregating data...</p>
                     </div>
                 </div>
+
+                <!-- UPLOAD STUDY MATERIAL -->
                 <div id="page-upload" class="page">
-                    <div class="section-title">Resource Distribution</div>
-                    <div class="card"
-                        style="border: 2px dashed #cbd5e1; background: #f8fafc; text-align: center; padding: 40px 20px;">
-                        <div
-                            style="width: 70px; height: 70px; background: var(--primary-light); color: var(--primary); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 16px; box-shadow: 0 10px 20px rgba(124, 58, 237, 0.1);">
-                            <i class='bx bx-cloud-upload'></i></div>
-                        <h3 style="font-size: 19px; font-weight:800; margin-bottom: 8px;">Upload Study Material</h3>
-                        <p style="font-size: 13px; font-weight:500; color: var(--text-light); margin-bottom: 30px;">
-                            Share Lecture Notes, PYQs, or Drive links to the student portal.</p>
-                        <input type="text" id="noteSubject" class="input-field"
-                            placeholder="E.g., Thermodynamics Lecture Notes"
-                            style="text-align: left; background: white; border: 1px solid #cbd5e1;">
-                        <input type="text" id="noteLink" class="input-field" placeholder="https://drive.google.com/..."
-                            style="text-align: left; background: white; border: 1px solid #cbd5e1;">
-                        <button class="btn-main" onclick="uploadNote()"><i class='bx bx-paper-plane'></i> Broadcast
-                            Material</button>
+                    <div class="section-title"><i class='bx bx-book-open'></i> Upload Study Material</div>
+                    
+                    <div class="card">
+                        <div class="form-group">
+                            <label>Target Year</label>
+                            <select id="uploadYear" class="input-field">
+                                <option value="1">1st Year (PCMB)</option>
+                                <option value="2">2nd Year (PCMB)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Subject & Chapter</label>
+                            <input type="text" id="noteSubject" class="input-field" placeholder="e.g. Physics - Kinematics">
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 24px;">
+                            <label>Drive / Material Link</label>
+                            <input type="text" id="noteLink" class="input-field" placeholder="Paste link here...">
+                        </div>
+                        
+                        <button class="btn-main" onclick="uploadNote()">
+                            <i class='bx bx-upload'></i> Publish Material
+                        </button>
                     </div>
                 </div>
+                
             </div>
+
             <nav class="bottom-nav">
                 <button class="nav-btn active" onclick="switchPage('home', this)"><i
                         class='bx bx-home-alt'></i><span>Home</span></button>
@@ -588,8 +697,10 @@
             </nav>
         </div>
     </div>
+
     <script>
         const API_URL = 'https://script.google.com/macros/s/AKfycbyUlEgkmxTF-8UajU9laehosQIYsvGz4mil1eXOzCM4RZb8uPngOysfG21d6HWV1x30/exec';
+        
         window.onload = () => {
             const storedRole = localStorage.getItem('userRole');
             const storedRegNo = localStorage.getItem('userRegNo');
@@ -610,6 +721,7 @@
                 setTimeout(() => document.getElementById('mainLoader').style.display = 'none', 500);
             }, 800);
         };
+
         function showToast(msg, type = 'info') {
             const toast = document.getElementById('toastBox');
             document.getElementById('toastMsg').innerText = msg;
@@ -617,6 +729,7 @@
             toast.querySelector('i').className = type === 'error' ? 'bx bxs-error-circle' : 'bx bxs-check-circle';
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
+
         async function loginTeacher() {
             const regNo = document.getElementById('regNo').value.trim();
             const pass = document.getElementById('regPass').value.trim();
@@ -647,7 +760,9 @@
                 showToast("Connection Error. Check network.", "error");
             }
         }
+
         function logout() { localStorage.clear(); window.location.reload(); }
+
         function switchPage(pageId, btnElement) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('page-' + pageId).classList.add('active');
@@ -655,14 +770,39 @@
             btnElement.classList.add('active');
             document.querySelector('.scroll-area').scrollTop = 0;
         }
+
+        /* --- TAB SWITCHING FUNCTIONS --- */
+        function switchAttTab(tab) {
+            document.getElementById('tabAtt1').classList.remove('active');
+            document.getElementById('tabAtt2').classList.remove('active');
+            document.getElementById('attList1').style.display = 'none';
+            document.getElementById('attList2').style.display = 'none';
+            
+            document.getElementById('tabAtt' + tab).classList.add('active');
+            document.getElementById('attList' + tab).style.display = 'block';
+        }
+
+        function switchRepTab(tab) {
+            document.getElementById('tabRep1').classList.remove('active');
+            document.getElementById('tabRep2').classList.remove('active');
+            document.getElementById('repList1').style.display = 'none';
+            document.getElementById('repList2').style.display = 'none';
+            
+            document.getElementById('tabRep' + tab).classList.add('active');
+            document.getElementById('repList' + tab).style.display = 'block';
+        }
+        /* -------------------------------- */
+
         async function loadTeacherStudents() {
             try {
                 const res = await fetch(`${API_URL}?action=getStudents`);
                 const students = await res.json();
                 if (students.error) return;
-                let html = '';
+                
+                let h1 = '', h2 = '';
+                
                 students.forEach(s => {
-                    html += `
+                    let html = `
                     <div class="student-row">
                         <div>
                             <h4 style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:2px;">${s.name}</h4>
@@ -675,22 +815,44 @@
                             <label for="a_${s.register_no}">A</label>
                         </div>
                     </div>`;
+
+                    if (s.role === 'student_2') {
+                        h2 += html;
+                    } else {
+                        h1 += html;
+                    }
                 });
-                document.getElementById('teacherStudentList').innerHTML = html;
+
+                document.getElementById('attList1').innerHTML = h1 || "<p style='text-align:center; padding:20px; font-weight:600; color:var(--text-light);'>No 1st year students.</p>";
+                document.getElementById('attList2').innerHTML = h2 || "<p style='text-align:center; padding:20px; font-weight:600; color:var(--text-light);'>No 2nd year students.</p>";
+                
                 document.getElementById('attDate').valueAsDate = new Date();
             } catch (e) { console.log(e); }
         }
+
         async function submitAttendance() {
             const date = document.getElementById('attDate').value;
             if (!date) return showToast("Select a date!", "error");
+            
             const btn = document.getElementById('btnSubmitAtt');
             const original = btn.innerHTML;
             btn.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Committing...";
             btn.style.pointerEvents = 'none'; btn.style.opacity = '0.8';
+            
             let records = [];
-            document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
+            
+            // Check which tab is active to only submit those students
+            const activeListId = document.getElementById('tabAtt1').classList.contains('active') ? 'attList1' : 'attList2';
+
+            document.querySelectorAll(`#${activeListId} input[type="radio"]:checked`).forEach(radio => {
                 records.push({ register_no: radio.name.replace('att_', ''), status: radio.value, name: radio.getAttribute('data-name') });
             });
+
+            if(records.length === 0) {
+                btn.innerHTML = original; btn.style.pointerEvents = 'auto'; btn.style.opacity = '1';
+                return showToast("No students to mark in this year.", "error");
+            }
+
             try {
                 await fetch(`${API_URL}?action=markAttendance`, { method: 'POST', body: JSON.stringify({ date, records }) });
                 btn.innerHTML = "<i class='bx bx-check'></i> Saved Successfully!";
@@ -698,35 +860,83 @@
                 setTimeout(() => { btn.innerHTML = original; btn.style.background = "linear-gradient(135deg, var(--primary), #ec4899)"; btn.style.pointerEvents = 'auto'; btn.style.opacity = '1'; }, 2000);
             } catch (e) { btn.innerHTML = original; btn.style.pointerEvents = 'auto'; btn.style.opacity = '1'; showToast("Failed to connect.", "error"); }
         }
+
         async function loadTeacherReport() {
             try {
-                const res = await fetch(`${API_URL}?action=getAllAttendance`);
-                const data = await res.json();
+                // Fetch both students and report to accurately map their Year Role
+                const [studRes, repRes] = await Promise.all([
+                    fetch(`${API_URL}?action=getStudents`),
+                    fetch(`${API_URL}?action=getAllAttendance`)
+                ]);
+                
+                const students = await studRes.json();
+                const data = await repRes.json();
+                
                 if (data.error) return;
-                let html = '';
+
+                // Create a mapping of Register_No -> Role
+                const roleMap = {};
+                students.forEach(s => {
+                    roleMap[s.register_no.toLowerCase()] = s.role;
+                });
+
+                let h1 = '', h2 = '';
+                
                 data.forEach(s => {
+                    let studentId = s.register_no.toLowerCase();
+                    let role = roleMap[studentId] || 'student_1'; // Default 1st Year
+
                     let c = s.percentage >= 75 ? 'var(--success)' : 'var(--danger)';
-                    html += `
-                    <div style="display:flex; justify-content:space-between; align-items:center; padding: 18px 0; border-bottom: 1px solid #f1f5f9;">
+                    let html = `
+                    <div class="report-row" style="display:flex; justify-content:space-between; align-items:center; padding: 18px 0; border-bottom: 1px solid #f1f5f9;">
                         <div>
-                            <h4 style="font-size:16px; font-weight:700; margin-bottom:4px;">${s.name}</h4>
+                            <h4 class="report-name" style="font-size:16px; font-weight:700; margin-bottom:4px;">${s.name}</h4>
                             <p style="font-size:13px; font-weight:600; color:var(--text-light);">P: <span style="color:var(--success)">${s.present}</span> | A: <span style="color:var(--danger)">${s.absent}</span></p>
                         </div>
                         <div style="text-align:right;">
                             <h3 style="font-size:22px; font-weight:800; color:${c}; letter-spacing:-0.5px;">${s.percentage}%</h3>
                         </div>
                     </div>`;
+
+                    if (role === 'student_2') {
+                        h2 += html;
+                    } else {
+                        h1 += html;
+                    }
                 });
-                document.getElementById('teacherReportList').innerHTML = html || "<p style='text-align:center; padding:20px; font-weight:600; color:var(--text-light);'>No data found.</p>";
+
+                document.getElementById('repList1').innerHTML = h1 || "<p style='text-align:center; padding:20px; font-weight:600; color:var(--text-light);'>No 1st Year data found.</p>";
+                document.getElementById('repList2').innerHTML = h2 || "<p style='text-align:center; padding:20px; font-weight:600; color:var(--text-light);'>No 2nd Year data found.</p>";
             } catch (e) { }
         }
+
         function uploadNote() {
+            const y = document.getElementById('uploadYear').value;
             const s = document.getElementById('noteSubject').value.trim();
             const l = document.getElementById('noteLink').value.trim();
+            
             if (!s || !l) return showToast("Fields cannot be empty.", "error");
+            
             showToast("Asset Broadcasted Successfully!", "success");
+            
+            document.getElementById('uploadYear').value = '1';
             document.getElementById('noteSubject').value = '';
             document.getElementById('noteLink').value = '';
+        }
+
+        // Search Filter for Report Analytics
+        function filterReport() {
+            const query = document.getElementById('searchReport').value.toLowerCase();
+            const rows = document.querySelectorAll('#page-report .report-row');
+            
+            rows.forEach(row => {
+                const name = row.querySelector('.report-name').innerText.toLowerCase();
+                if (name.includes(query)) {
+                    row.style.display = 'flex';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>
